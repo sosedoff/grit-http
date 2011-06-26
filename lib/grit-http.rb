@@ -23,6 +23,7 @@ module GritHttp
   
   # Initialize application settings
   def self.setup
+    check_git_version
     load_repositories(@@config[:repositories])
   end
   
@@ -52,6 +53,13 @@ module GritHttp
   end
   
   protected
+  
+  # Check system's git version
+  def self.check_git_version
+    if `which git`.strip.empty?
+      raise RuntimeError, "Git binary was not found. Please install git and try again."
+    end
+  end
   
   # Loads all repositories
   def self.load_repositories(items=[])
