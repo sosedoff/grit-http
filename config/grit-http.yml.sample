@@ -1,0 +1,9 @@
+protection: true
+cache: false
+
+api_keys:
+  - "SAMPLE_API_KEY"
+  - "SAMPLE_API_KEY2"
+
+repositories:
+  name: /path/to/repository
