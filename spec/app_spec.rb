@@ -11,6 +11,11 @@ describe 'API' do
     api_response(last_response.body, true)['error'] == GritHttp::Helpers::ERROR_INVALID_REQUEST_METHOD
   end
   
+  it 'should return error code on 404' do
+    get '/invalid-path'
+    last_response.status.should == 400
+    api_response(last_response.body, true)['error'] == GritHttp::Helpers::ERROR_INVALID_REQUEST_PATH
+  end
   
   context 'without authentication' do    
     it 'returns error 400 if no API key were provided' do

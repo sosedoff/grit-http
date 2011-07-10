@@ -5,6 +5,7 @@ module GritHttp
     ERROR_NOT_IMPLEMENTED         = 3
     ERROR_UNKNOWN_ERROR           = 4
     ERROR_INVALID_REQUEST_METHOD  = 5
+    ERROR_INVALID_REQUEST_PATH    = 6
     ERROR_REPO_REQUIRED           = 100
     ERROR_REPO_NOT_FOUND          = 101
     ERROR_REPO_NAME_REQUIRED      = 102
@@ -29,6 +30,7 @@ module GritHttp
       ERROR_NOT_IMPLEMENTED         => "Feature is not implemented.",
       ERROR_UNKNOWN_ERROR           => "Unknown error.",
       ERROR_INVALID_REQUEST_METHOD  => "Only GET requests are allowed.",
+      ERROR_INVALID_REQUEST_PATH    => "Invalid request path.",
       ERROR_REPO_REQUIRED           => "Repository required!",
       ERROR_REPO_NOT_FOUND          => "Repository was not found!",
       ERROR_REPO_NAME_REQUIRED      => "Repository name required.",

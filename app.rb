@@ -27,6 +27,11 @@ before do
   check_api_auth
 end
 
+not_found do
+  content_type :json, :charset => 'utf-8'
+  error_response(ERROR_INVALID_REQUEST_PATH)
+end
+
 # Returns a current time response
 # GET /
 # Params: none
