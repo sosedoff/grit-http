@@ -7,6 +7,7 @@ gem 'yajl-ruby',        '0.8.2'
 gem 'redis',            '2.2.1'
 gem 'uuidtools',        '2.1.2'
 gem 'grit',             '2.4.1'
+gem 'linguist',         :git => 'https://github.com/github/linguist.git'
 
 group :development do
   gem 'thin',           '1.2.11'

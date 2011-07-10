@@ -5,6 +5,7 @@ require 'yajl'
 require 'yajl/json_gem'
 require 'uuidtools'
 require 'grit'
+require 'linguist'
 
 $LOAD_PATH << '.' if RUBY_VERSION > '1.9'
 
