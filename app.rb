@@ -176,6 +176,22 @@ get '/commit' do
   success_response(resp)    
 end
 
+# GET /commit/diff
+#   repo => Repository (required)
+#   head => HEAD (optional, default to 'master')
+#   id   => Commit ID (full or short) (required)
+get '/commit/diff' do
+  load_repository
+  load_commit
+  
+  resp = {
+    :head => @head,
+    :diff => @commit.diffs.map(&:to_hash)
+  }
+  
+  success_response(resp)
+end
+
 # GET /compare
 #   repo => Repository (required)
 #   head => HEAD (optional, default to 'master')
