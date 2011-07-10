@@ -13,7 +13,7 @@ describe 'API' do
   
   it 'should return error code on 404' do
     get '/invalid-path'
-    last_response.status.should == 400
+    last_response.status.should == 404
     api_response(last_response.body, true)['error'] == GritHttp::Helpers::ERROR_INVALID_REQUEST_PATH
   end
   

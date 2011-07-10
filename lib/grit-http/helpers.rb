@@ -1,4 +1,14 @@
 module GritHttp
+  ALLOWED_PATHS = [
+    '/', '/ping', '/versions',
+    '/repositories', '/repository',
+    '/authors', '/tags', '/heads', '/refs',
+    '/commits', '/commits_stats', '/commits_count',
+    '/commit', '/commit/diff', '/compare', '/payload',
+    '/commit/payload', '/tree', '/tree_history',
+    '/blob', '/raw', '/blame'
+  ].freeze
+  
   module Helpers
     include GritHttp::Errors
     
@@ -10,6 +20,7 @@ module GritHttp
     # Check API request parameters
     def check_api_request
       halt 400, error_response(ERROR_INVALID_REQUEST_METHOD) unless request.get?
+      halt 404, error_response(ERROR_INVALID_REQUEST_PATH) unless ALLOWED_PATHS.include?(request.path)
     end
     
     # Check API authentication for each request

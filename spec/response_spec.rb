@@ -43,7 +43,7 @@ describe 'Response' do
   
   it 'has a message for each error code' do
     GritHttp::Helpers.constants.each do |c|
-      unless c.to_s =~ /^ERROR_MESSAGES/
+      unless c.to_s =~ /^ERROR_MESSAGES/i
         val = GritHttp::Helpers.const_get(c)
         GritHttp::Errors.error_message(val).should_not == nil
       end
