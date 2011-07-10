@@ -324,6 +324,35 @@ Response:
       }
     }
     
+### Get commit diffs
+
+    GET /commit/diff?repo=sinatra&id=a6f6a147bfe3a9d7cd05f8e06212fc0ea8e23dcc
+    
+Response:
+
+    {
+      "result": true,
+      "data": {
+        "head": "master",
+        "diff": [
+          {
+            "a_path": "lib/sinatra/base.rb",
+            "b_path": "lib/sinatra/base.rb",
+            "deleted_file": false,
+            "new_file": false,
+            "content": "--- a/lib/sinatra/base.rb\n+++ b/lib/sinatra/base.rb\n@@ -189,6 +189,8 @@\n       if filename\n         params = '; filename=\"%s\"' % File.basename(filename)\n         response['Content-Disposition'] << params\n+        ext = File.extname(filename)\n+        content_type(ext) unless response['Content-Type'] or ext.empty?\n       end\n     end\n "
+          },
+          {
+            "a_path": "test/helpers_test.rb",
+            "b_path": "test/helpers_test.rb",
+            "deleted_file": false,
+            "new_file": false,
+            "content": "--- a/test/helpers_test.rb\n+++ b/test/helpers_test.rb\n@@ -576,6 +576,45 @@\n     end\n   end\n \n+  describe 'attachment' do\n+    def attachment_app(filename=nil)\n+      mock_app {       \n+        get '/attachment' do\n+          attachment filename\n+          response.write(\"<sinatra></sinatra>\")\n+        end\n+      }\n+    end\n+    \n+    it 'sets the Content-Type response header' do\n+      attachment_app('test.xml')\n+      get '/attachment'\n+      assert_equal 'application/xml;charset=utf-8', response['Content-Type']\n+      assert_equal '<sinatra></sinatra>', body\n+    end \n+    \n+    it 'sets the Content-Type response header without extname' do\n+      attachment_app('test')\n+      get '/attachment'\n+      assert_equal 'text/html;charset=utf-8', response['Content-Type']\n+      assert_equal '<sinatra></sinatra>', body   \n+    end\n+    \n+    it 'sets the Content-Type response header without extname' do\n+      mock_app do\n+        get '/attachment' do\n+          content_type :atom\n+          attachment 'test.xml'\n+          response.write(\"<sinatra></sinatra>\")\n+        end\n+      end\n+      get '/attachment'\n+      assert_equal 'application/atom+xml', response['Content-Type']\n+      assert_equal '<sinatra></sinatra>', body   \n+    end\n+    \n+  end\n+\n   describe 'send_file' do\n     setup do\n       @file = File.dirname(__FILE__) + '/file.txt'"
+          }
+        ]
+      }
+    }
+    
 ### Get commit payload
 
     GET /commit/payload?repo=sinatra&id=a6f6a147bfe3a9d7cd05f8e06212fc0ea8e23dcc
