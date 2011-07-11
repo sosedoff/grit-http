@@ -129,10 +129,10 @@ get '/commits' do
   )
 end
 
-# GET /commits_stats
+# GET /commits/stats
 #   repo => Repository (required)
 #   head => HEAD (optional, default to 'master')
-get '/commits_stats' do
+get '/commits/stats' do
   load_repository
   
   days = params[:days] || 30
@@ -144,10 +144,10 @@ get '/commits_stats' do
 end
 
 # Fetch total amount of commits for the ref
-# GET /commits_count
+# GET /commits/count
 #   repo => Repository
 #   head => HEAD (optional, defaults to 'master')
-get '/commits_count' do
+get '/commits/count' do
   load_repository
   success_response(:count => Grit::Commit.count(@repo, @head))
 end
@@ -274,11 +274,11 @@ get '/tree' do
   )
 end
 
-# GET /tree_history
+# GET /tree/history
 #   repo => Repository(required)
 #   head => HEAD (optional)
 #   path => Tree path(optional, default to root)
-get '/tree_history' do
+get '/tree/history' do
   load_repository
   load_tree
   
