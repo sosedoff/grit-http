@@ -3,9 +3,9 @@ module GritHttp
     '/', '/ping', '/versions',
     '/repositories', '/repository',
     '/authors', '/tags', '/heads', '/refs',
-    '/commits', '/commits_stats', '/commits_count',
+    '/commits', '/commits/stats', '/commits/count',
     '/commit', '/commit/diff', '/compare', '/payload',
-    '/commit/payload', '/tree', '/tree_history',
+    '/commit/payload', '/tree', '/tree/history',
     '/blob', '/raw', '/blame'
   ].freeze
   

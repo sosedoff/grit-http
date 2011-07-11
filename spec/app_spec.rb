@@ -75,19 +75,18 @@ describe 'API' do
     
     context 'for repository routes' do
       it 'returns error 400 if no repository were provided' do
-        routes = %w(authors tags heads refs commits commits_stats commits_count commit commit/payload compare payload tree tree_history blob raw blame)
-        
-        routes.each do |path|
-          get "/#{path}", :api_key => 'foobar'
-          last_response.status.should == 400
+        GritHttp::ALLOWED_PATHS.each do |path|
+          get(path, :api_key => 'foobar')
+          last_response.status.should_not == 404
         end
       end
       
       it 'returns error 404 if no repository were found' do
-        routes = %w(authors tags heads refs commits commits_stats commits_count commit compare payload tree tree_history blob raw blame repo_capacity)
+        routes = GritHttp::ALLOWED_PATHS.dup
+        ['/', '/ping', '/versions', '/repositories'].each { |p| routes.delete(p) }
         
         routes.each do |path|
-          get "/#{path}", :api_key => 'foobar', :repo => 'foobar'
+          get(path, :api_key => 'foobar', :repo => 'foobar')
           last_response.status.should == 404
         end
       end
